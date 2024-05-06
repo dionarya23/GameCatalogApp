@@ -8,10 +8,24 @@
 import SwiftUI
 
 @main
-struct Game_Catalog_Dicoding_SubmissionApp: App {
+struct GameCatalogApp: App {
+    @State private var showSplash = true
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if showSplash {
+                SplashScreen()
+                    .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            withAnimation {
+                                showSplash = false
+                            }
+                        }
+                    }
+            } else {
+                GameCatalogTabView()
+                    .preferredColorScheme(.dark)
+            }
         }
     }
 }
